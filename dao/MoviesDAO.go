@@ -16,7 +16,7 @@ type MoviesDAO struct {
 var db *mgo.Database
 
 const (
-	COLLECTION = "Movies"
+	COLLECTION = "movies"
 )
 
 func (m *MoviesDAO) Connect() {
@@ -24,7 +24,7 @@ func (m *MoviesDAO) Connect() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	db.Session.DB(m.Database)
+	db= session.DB(m.Database)
 }
 
 func (m *MoviesDAO) FindAll() ([]Movie, error) {
