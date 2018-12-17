@@ -6,10 +6,10 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/gorilla/mux"
 	. "github.com/fronzec/rest-api-go/config"
 	. "github.com/fronzec/rest-api-go/dao"
 	. "github.com/fronzec/rest-api-go/models"
+	"github.com/gorilla/mux"
 )
 
 var config = Config{}
@@ -94,6 +94,15 @@ func respondWithJson(w http.ResponseWriter, code int, payload interface{}) {
 	w.Write(response)
 }
 
+func init() {
+	config.Read()
+	dao.Server =       config.Server
+	dao.Database =     config.Database
+	dao.AuthPassword = config.AuthPassword
+	dao.AuthUsername = config.AuthPassword
+	dao.AuthDatabase = config.AuthDatabase
+	dao.Connect()
+}
 func main() {
 	// Creates a new controller for each endpoint
 	r := mux.NewRouter()
