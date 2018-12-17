@@ -3,9 +3,10 @@ package dao
 // TODO import model from models directory from current project
 import (
 	. "github.com/fronzec/rest-api-go/models"
-	mgo "gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"log"
+	"time"
 )
 
 type MoviesDAO struct {
@@ -16,15 +17,28 @@ type MoviesDAO struct {
 var db *mgo.Database
 
 const (
-	COLLECTION = "movies"
+	COLLECTION   = "movies"
+	MongoDBHost  = "localhost:27017"
+	AuthDatabase = "admin"
+	AuthUsername = "mongoadmin"
+	AuthPassword = "Super09"
 )
 
 func (m *MoviesDAO) Connect() {
-	session, err := mgo.Dial(m.Server)
+	print(">>>>> Connecting to database")
+	mongoDBDialInfo := &mgo.DialInfo{
+		Database: AuthDatabase,
+		Username: AuthUsername,
+		Password: AuthPassword,
+		Addrs:    []string{MongoDBHost},
+		Timeout:  60 * time.Second,
+	}
+
+	session, err := mgo.DialWithInfo(mongoDBDialInfo)
 	if err != nil {
 		log.Fatal(err)
 	}
-	db= session.DB(m.Database)
+	db = session.DB(m.Database)
 }
 
 func (m *MoviesDAO) FindAll() ([]Movie, error) {

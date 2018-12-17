@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"gopkg.in/mgo.v2/bson"
 	"log"
 	"net/http"
@@ -20,7 +19,7 @@ var dao = MoviesDAO{}
 func AllMoviesEndPoint(w http.ResponseWriter, r *http.Request) {
 	movies, err := dao.FindAll()
 	if err != nil {
-		respondWithError(w, http.StatusInternalServerError, error.Error())
+		respondWithError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 	respondWithJson(w, http.StatusOK, movies)
