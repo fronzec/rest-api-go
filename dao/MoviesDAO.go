@@ -2,7 +2,7 @@ package dao
 
 // TODO import model from models directory from current project
 import (
-	. "github.com/mlabouardy/movies-restapi/models"
+	. "github.com/fronzec/rest-api-go/models"
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"log"
