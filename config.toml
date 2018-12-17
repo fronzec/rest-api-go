@@ -1,2 +1,5 @@
-server="localhost"
+server="localhost:27017"
 database="movies_db"
+auth-database="admin"
+auth-user="mongoadmin"
+auth-password="Super09"

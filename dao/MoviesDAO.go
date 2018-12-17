@@ -2,6 +2,7 @@ package dao
 
 // TODO import model from models directory from current project
 import (
+	"github.com/fronzec/rest-api-go/dao"
 	. "github.com/fronzec/rest-api-go/models"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -10,27 +11,26 @@ import (
 )
 
 type MoviesDAO struct {
-	Server   string
-	Database string
+	Database     string
+	Server       string
+	AuthDatabase string
+	AuthUsername string
+	AuthPassword string
 }
 
 var db *mgo.Database
 
 const (
-	COLLECTION   = "movies"
-	MongoDBHost  = "localhost:27017"
-	AuthDatabase = "admin"
-	AuthUsername = "mongoadmin"
-	AuthPassword = "Super09"
+	COLLECTION = "movies"
 )
 
 func (m *MoviesDAO) Connect() {
 	print(">>>>> Connecting to database")
 	mongoDBDialInfo := &mgo.DialInfo{
-		Database: AuthDatabase,
-		Username: AuthUsername,
-		Password: AuthPassword,
-		Addrs:    []string{MongoDBHost},
+		Database: dao.AuthDatabase,
+		Username: dao.AuthUsername,
+		Password: dao.AuthPassword,
+		Addrs:    []string{dao.Server},
 		Timeout:  60 * time.Second,
 	}
 
