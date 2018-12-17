@@ -10,3 +10,8 @@
 
 ## How to run app in local environment
 `go run app.go`
+
+## TODO
+- replace mgo with [mongo-go-driver](https://github.com/mongodb/mongo-go-driver)
+- add authentication with mongo
+- update dependencies
